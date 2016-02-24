@@ -1,0 +1,11 @@
+(define (an-integer-between low high)
+  (if (< high low)
+    (amb)
+    (amb low (an-integer-between (+ 1 low) high))))
+
+(define (a-pythagorean-triple-between low high)
+  (let ((i (an-integer-between low high)))
+    (let ((j (an-integer-between i high)))
+      (let ((k (an-integer-between j high)))
+        (require (= (+ (* i i) (* j j)) (* k k)))
+        (list i j k)))))

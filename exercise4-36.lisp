@@ -1,0 +1,55 @@
+(define (flatmap f lst)
+  (apply append (map f lst)))
+
+(define (require p)
+  (if (not p) (amb) '()))                                              
+
+(define (in-list lst)
+  (if (null? lst)
+    (amb)
+    (amb (car lst) (in-list (cdr lst)))))
+
+(define (grow-triples t)
+  (let* ((x  (first t))
+         (x2 (+ 1 x))
+         (y  (second t))
+         (y2 (+ 1 y))
+         (z  (third t))
+         (z2 (+ 1 z)))
+    (list
+      (list x  y  z2)
+      (list x  y2 z )
+      (list x  y2 z2)
+      (list x2 y  z )
+      (list x2 y  z2)
+      (list x2 y2 z )
+      (list x2 y2 z2))))
+
+(define (triples-at iter)
+  (if (= 1 iter)
+    (list (list 1 1 1))
+    (let* ((last-triples (triples-at (- iter 1)))
+           (new-triple? (lambda (x) (not (member x last-triples))))
+           (potential-triples (flatmap grow-triples last-triples))
+           (new-potentials (filter new-triple? potential-triples)))
+      (remove-duplicates new-potentials))))
+
+(define (triples-from iter)
+  (amb (in-list (triples-at iter))
+       (triples-from (+ 1 iter))))
+
+(define (pythagorean-triples-from iter)
+  (let* ((triple (triples-from iter))
+         (i (first triple))
+         (j (second triple))
+         (k (third triple)))
+    (require (and (<= i j)
+                  (<= j k)
+                  (= (+ (* i i) (* j j)) (* k k))))
+    triple))
+
+; (pythagorean-triples-from 1)
+
+; (amb)
+
+; (amb)

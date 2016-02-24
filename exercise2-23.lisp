@@ -1,0 +1,5 @@
+(define (for-each f x)
+  (map f x)
+  #t)
+(for-each (lambda (x) (display x) (newline))
+          (list 57 321 88))

@@ -1,0 +1,12 @@
+(define (cont-frac-iter n d k)
+  (define (cont-helper n d k i acc)
+    (if (< i 1)
+      acc
+      (cont-helper n d k (- i 1) (/ (n i) (+ (d i) acc)))))
+  (cont-helper n d k k 0))
+(define (n i) 1)
+(define (d i)
+  (if (= (modulo i 3) 2)
+    (* (+ 1 (floor (/ i 3))) 2)
+    1))
+(display (cont-frac-iter n d 10.0)) (newline)

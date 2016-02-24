@@ -1,0 +1,6 @@
+(define (same-parity x . l)
+  (filter (lambda (y) (= (modulo x 2) (modulo y 2))) (cons x l)))
+(display (same-parity 1 2 3 4 5 6 7))
+(newline)
+(display (same-parity 2 3 4 5 6 7))
+(newline)

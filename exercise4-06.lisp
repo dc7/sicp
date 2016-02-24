@@ -1,0 +1,5 @@
+(define (let->combination exp)
+  (let ((vars (map first (second exp)))
+        (exps (map second (second exp)))
+        (body (cddr exp)))
+    (cons (make-procedure vars body) exps)))

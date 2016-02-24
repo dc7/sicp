@@ -1,0 +1,12 @@
+(define (reverse sequence)
+  (foldr (lambda (this rest)
+           (if (null? rest)
+             (list this)
+             (append rest (list this)))) '() sequence))
+(display (reverse '(1 2 3 4 5 6 7 8 9 10)))
+(newline)
+
+(define (reverse sequence)
+  (foldl (lambda (this rest) (cons this rest)) '() sequence))
+(display (reverse '(1 2 3 4 5 6 7 8 9 10)))
+(newline)

@@ -1,0 +1,16 @@
+(define (fringe x)
+  (if (not (pair? x))
+    x
+    (let ((next (fringe (car x))))
+      (if (null? next)
+        (fringe (cdr x))
+        (if (pair? next)
+          (append next (fringe (cdr x)))
+          (cons next (fringe (cdr x))))))))
+; or (define fringe flatten)
+
+(define x (list (list 1 2) (list 3 4)))
+(display (fringe x))
+(newline)
+(display (fringe (list x x)))
+(newline)
